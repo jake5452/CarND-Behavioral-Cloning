@@ -16,11 +16,14 @@ EPOCHS = 5
 IMG_DATA_PATH = 'data/IMG/'
 
 def apply_random_data_augmentation(img, steering):
+    """
+    Add random augmentation to data
+    """
     # Add random brightness change
     img = apply_random_brightness_changes(img)
 
     # Add random translation
-    # img, steering = apply_random_translation(img, steering)
+    img, steering = apply_random_translation(img, steering)
 
     # Add random flip
     img, steering = apply_random_flip(img, steering)
@@ -84,6 +87,9 @@ def apply_random_flip(img, steering):
     return img, steering
 
 def read_img(source_path, image_data_path):
+    """
+    Read given image 
+    """
     filename = source_path.split('/')[-1]
     current_path = image_data_path + filename
     img = cv2.imread(current_path)
@@ -189,6 +195,9 @@ def nvidia_model(input_shape):
     return model
 
 def visualize_data_distribution(data):
+    """
+    Visualiza data distribution
+    """
     num_bins = 30
     hist, bins = np.histogram(data, num_bins)
     center = (bins[:-1] + bins[1:]) / 2
@@ -203,12 +212,12 @@ data_log = collect_data_log_from_csv(csv_path)
 
 ## Training and Validation Data
 data_log = shuffle(data_log) 
-_, angles = generate_data_from_log(data_log, IMG_DATA_PATH)
-visualize_data_distribution(angles.astype(np.float))
+# _, angles = generate_data_from_log(data_log, IMG_DATA_PATH)
+# visualize_data_distribution(angles.astype(np.float))
 
 data_log = subsample_low_angle_data(data_log)
-images, angles = generate_data_from_log(data_log, IMG_DATA_PATH)
-visualize_data_distribution(angles.astype(np.float))
+# images, angles = generate_data_from_log(data_log, IMG_DATA_PATH)
+# visualize_data_distribu tion(angles.astype(np.float))
 
 # plt.subplot(1,2,1)
 # plt.axis("off")
@@ -244,29 +253,29 @@ visualize_data_distribution(angles.astype(np.float))
 # plt.show()
 
 # #80/10/10 split in ttraining, validation, and testing data
-# data_log = shuffle(data_log)  # Randomize data set creation
-# training_count = int(0.8 * len(data_log))
-# validation_count = int(0.1 * len(data_log))
-# training_data_log = data_log[:training_count]
-# validation_data_log = data_log[training_count:training_count+validation_count]
-# test_data_log = data_log[training_count+validation_count:]
+data_log = shuffle(data_log)  # Randomize data set creation
+training_count = int(0.8 * len(data_log))
+validation_count = int(0.1 * len(data_log))
+training_data_log = data_log[:training_count]
+validation_data_log = data_log[training_count:training_count+validation_count]
+test_data_log = data_log[training_count+validation_count:]
 
-# train_data_gen = training_data_genator(training_data_log, IMG_DATA_PATH)
-# valid_img, valid_steering = generate_data_from_log(validation_data_log, IMG_DATA_PATH)
-# test_img, test_steering = generate_data_from_log(test_data_log, IMG_DATA_PATH)
+train_data_gen = training_data_genator(training_data_log, IMG_DATA_PATH)
+valid_img, valid_steering = generate_data_from_log(validation_data_log, IMG_DATA_PATH)
+test_img, test_steering = generate_data_from_log(test_data_log, IMG_DATA_PATH)
 # print(len(data_log))
 # print(len(valid_img))
 # print(len(test_img))
 
-# model = nvidia_model(INPUT_SHAPE)
-# model.summary()
-# model.fit_generator(train_data_gen, 
-#                     samples_per_epoch=int(training_count / BATCH_SIZE) * BATCH_SIZE, 
-#                     nb_epoch=EPOCHS, 
-#                     validation_data=[valid_img, valid_steering])
+model = nvidia_model(INPUT_SHAPE)
+model.summary()
+model.fit_generator(train_data_gen, 
+                    samples_per_epoch=int(training_count / BATCH_SIZE) * BATCH_SIZE, 
+                    nb_epoch=EPOCHS, 
+                    validation_data=[valid_img, valid_steering])
 
-# # Evaluate on test data
-# test_loss = model.evaluate(test_img, test_steering, batch_size=128)
-# print('Test Loss: ', test_loss)    # Loss on test set
+# Evaluate on test data
+test_loss = model.evaluate(test_img, test_steering, batch_size=128)
+print('Test Loss: ', test_loss)    # Loss on test set
 
-# model.save('model.h5')
+model.save('model.h5')
