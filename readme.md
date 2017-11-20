@@ -18,11 +18,11 @@ In machine learning, it is generally known fact that scewed data set makes it ha
 ## Driving Data Augmentation
 While exploring the dataset, it became clear that the dataset has to be augmented. There are few images with shawdows on the road but if the car were to learn what to do when it sees sahdows, it would need more to handle such situations. I augmented the data with random brightness changes to help with this issue:
 
-<img src="writeup_images/change_brightness.png" width="480" alt="Input Image 1" />
+<img src="writeup_images/change_brightness.png" width="720" alt="Input Image 1" />
 
 It was also mentioned in the course how the driving course is designed to turn left most of the time and the car will not be able to learn good driving habbits to accomodate for the right turns. To mitigate this issue some of the images and settering angles were selected to be flipped horizontally:
 
-<img src="writeup_images/flip.png" width="480" alt="Input Image 1" />
+<img src="writeup_images/flip.png" width="720" alt="Input Image 1" />
 
 Also, it is expected that the neural network will not be able to perfectly copy the expert's behaviour from the training dataset. This will mean that the car will run into situations that is not recored in the origianl training dataset. In order to build a robust driving model, I added random translation to the input images and modified the steering angles accordingly in order to simulate the car driving on many different positions and orientations on the road. Some of the examples of this augmentations are shown below.
 
