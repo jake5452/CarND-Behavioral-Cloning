@@ -26,9 +26,9 @@ It was also mentioned in the course how the driving course is designed to turn l
 
 Also, it is expected that the neural network will not be able to perfectly copy the expert's behaviour from the training dataset. This will mean that the car will run into situations that is not recored in the origianl training dataset. In order to build a robust driving model, I added random translation to the input images and modified the steering angles accordingly in order to simulate the car driving on many different positions and orientations on the road. Some of the examples of this augmentations are shown below.
 
-<img src="writeup_images/translation1.png" width="480" alt="Input Image 1" />
+<img src="writeup_images/translation1.png" width="720" alt="Input Image 1" />
 
-<img src="writeup_images/translation2.png" width="480" alt="Input Image 1" />
+<img src="writeup_images/translation2.png" width="720" alt="Input Image 1" />
 
 ## More Data
 After augmentation, I was able to get the car to drive the full course but on sharp turns, the deep neural network would do something that would not be considered safe if humans were the drivers. I added one lap of data for those sharp turns to ensure that the network learns proper policies to make those turns. In the end, I ended up with 9000 data points for training a network that successfully drives around the course.
