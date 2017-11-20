@@ -47,4 +47,4 @@ I used Adam optimization as the gradient descent alogirthm and Mean Squared Erro
 Morover, a batch size of 128 was used to train the neural network. I used Keras' `fit_generator` to make sure batches are generated in online rather than having to store and keep the entire dataset in the memory.
 
 ## Video
-The link to download the video of my training result can be found [here](./run1.mp4)
+The link to download the video of my training result can be found [here](./run1.mp4).
