@@ -1,7 +1,7 @@
 **Behavioral Cloning** 
 ---
 ## Overview
-In this project for Udacity's Self Driving Car Nano Degree Program, we explore end-to-end learning for self driving cars.  In a simulated environment, we teach how a car to drive using deep learning. Specifically, a deep neural network is implemented to learn the mapping from the camera data to steering angles.
+In this project for Udacity's Self Driving Car Nano Degree Program, we explored end-to-end learning technique for self driving cars.  In a simulated environment, we teach how a car to drive using deep learning. Specifically, a deep neural network is implemented to learn the mapping from the camera data to steering angles.
 
 **Discussion**
 --
